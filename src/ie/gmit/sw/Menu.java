@@ -1,4 +1,5 @@
 package ie.gmit.sw;
+
 import java.util.*;
 
 public class Menu {
@@ -6,7 +7,16 @@ public class Menu {
 	private Scanner s = new Scanner(System.in);
 	private String option;
 	private boolean keepGoing = true;
+	private String fileName;
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public void show() {
 		while(keepGoing == true) {
 			printMenu();
@@ -25,11 +35,20 @@ public class Menu {
 	}	
 	
 	public void handle(String option) {
-		if(option.equals("4")) {
-			keepGoing = false;
+		if(option.equals("1")) {
+			System.out.println("    Select File or URL");
+			System.out.print("    Enter filename: ");
+			setFileName(s.next() + ".txt");
 		}
-		else if(option.equals("1")) {
-			System.out.println("you hit 1!");
+		else if(option.equals("2")) {
+			System.out.println("    Enter number of words to display");
+		}
+		else if(option.equals("3")) {
+			System.out.println("    Enter image name");
+		}
+		else if(option.equals("4")) {
+			System.out.println("    Quitting");
+			keepGoing = false;
 		}
 	}
 }
