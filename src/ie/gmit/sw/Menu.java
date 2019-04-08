@@ -14,7 +14,8 @@ public class Menu {
 	}
 
 	public void setFileName(String fileName) {
-		this.fileName = fileName;
+		this.fileName = "../" + fileName;
+		//this.fileName = "WarAndPeace-LeoTolstoy.txt"; // DEBUG
 	}
 
 	public void show() {
