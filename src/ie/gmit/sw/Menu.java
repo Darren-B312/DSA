@@ -1,24 +1,18 @@
 package ie.gmit.sw;
 
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Menu {
-
+	
 	private Scanner s = new Scanner(System.in);
 	private String option;
 	private boolean keepGoing = true;
-	private String fileName;
+
 	
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = "../" + fileName;
-		//this.fileName = "WarAndPeace-LeoTolstoy.txt"; // DEBUG
-	}
-
-	public void show() {
+	public void show() throws FileNotFoundException, Exception {
 		while(keepGoing == true) {
 			printMenu();
 			option = s.next();
@@ -27,29 +21,44 @@ public class Menu {
 	}
 	
 	public void printMenu() {
-		System.out.println("This is a menu!");
-		System.out.println("  1.Select File or URL");
-		System.out.println("  2.Enter number of words to display");
-		System.out.println("  3.Enter image name"); 
-		System.out.println("  4.Quit");
+		System.out.println("\nA Word Cloud Generator!");
+		System.out.println("1.Select File or URL");
+		System.out.println("2.Set Number of Words");
+		System.out.println("3.Set Image Name"); 
+		System.out.println("4.Create Image");
+		System.out.println("X.EXIT");
 		System.out.print(">");
 	}	
 	
 	public void handle(String option) {
-		if(option.equals("1")) {
-			System.out.println("    Select File or URL");
-			System.out.print("    Enter filename: ");
-			setFileName(s.next() + ".txt");
+		
+		if (option.equals("1")) { // new Parser
+			System.out.print("  Enter filename: ");
+			Parser p = new Parser();
+			try {
+				p.parse(new FileInputStream(new File(s.next())));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
-		else if(option.equals("2")) {
-			System.out.println("    Enter number of words to display");
+		else if (option.equals("2")) {
+			
 		}
-		else if(option.equals("3")) {
-			System.out.println("    Enter image name");
+		else if (option.equals("3")) {
+			
 		}
-		else if(option.equals("4")) {
-			System.out.println("    Quitting");
+		else if (option.equals("4")) { // new BufferedImage
+			
+		}
+		else if (option.equalsIgnoreCase("x")) { // quit
+			System.out.println("  Exiting...");
 			keepGoing = false;
 		}
+
 	}
 }

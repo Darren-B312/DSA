@@ -3,36 +3,43 @@ package ie.gmit.sw;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+
 
 public class Parser {
+
+	private Dictionary ignored = new Dictionary();
+	private HashMap<String, Integer> wordFreq = new HashMap<String, Integer>();
+
+	public void parse(InputStream in) throws Exception {		
+		ignored.load();
 		
-	private Blacklist bl = new Blacklist();
 	
-	public void parse(InputStream in) throws Exception{
-		bl.load();
-			
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String next = null;
-			long startTime = System.nanoTime();
-			while((next = br.readLine()) != null) {
-				String[] words = next.replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" "); // replaceAll - https://stackoverflow.com/a/18831709
-				
-				
-				for(String word: words) {					
-					if (!bl.getBlacklist().contains(word)) {
-						//System.out.println(word); //debug - testing file parser
-					}
+		String next = null;
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		
+		while((next = br.readLine()) != null) {
+			String[] words = next.replaceAll("[^a-zA-Z ]","").toLowerCase().split(" "); // replaceAll - https://stackoverflow.com/a/18831709
+		
+			for (String word: words) {
+				if (!ignored.getIgnored().contains(word)) {
+					//System.out.println(word);
 					
+					if(wordFreq.containsKey(word)) {
+						wordFreq.put(word, wordFreq.get(word) + 1);
+					}
+					else {
+						wordFreq.put(word, 1);
+					}
 				}
-
 			}
-			System.out.println("Running time (ns): " + (System.nanoTime() - startTime));
-			br.close();
-		}catch (Exception e) {
-			throw new Exception("Error - file not found " + e.getMessage());
+			
 		}
-
+		
+		System.out.println(wordFreq);
+	
+		
 	}
+
 	
 }
