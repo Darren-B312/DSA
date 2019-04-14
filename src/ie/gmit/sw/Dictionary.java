@@ -9,10 +9,10 @@ import java.util.Set;
 public class Dictionary {
 
 	private final String IGNORED_WORDS_FILE = "../ignorewords.txt";
-	private Set<String> ignored = new HashSet<String>();
+	private Set<String> ignoredWords = new HashSet<String>();
 	
 	public Set<String> getIgnored() {
-		return ignored;
+		return ignoredWords;
 	}
 
 	public void load() throws Exception{
@@ -21,7 +21,7 @@ public class Dictionary {
 			String next = null;
 			
 			while((next = br.readLine()) != null) {
-				ignored.add(next);
+				ignoredWords.add(next);
 			}
 			br.close(); 
 		} catch (Exception e) {

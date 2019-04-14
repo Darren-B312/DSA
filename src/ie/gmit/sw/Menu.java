@@ -1,7 +1,5 @@
 package ie.gmit.sw;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -10,7 +8,9 @@ public class Menu {
 	private Scanner s = new Scanner(System.in);
 	private String option;
 	private boolean keepGoing = true;
+	Controller controller = new Controller();
 
+	
 	
 	public void show() throws FileNotFoundException, Exception {
 		while(keepGoing == true) {
@@ -22,38 +22,36 @@ public class Menu {
 	
 	public void printMenu() {
 		System.out.println("\nA Word Cloud Generator!");
-		System.out.println("1.Select File or URL");
-		System.out.println("2.Set Number of Words");
-		System.out.println("3.Set Image Name"); 
-		System.out.println("4.Create Image");
+		System.out.println("1.File Name");
+		System.out.println("2.URL");
+		System.out.println("3.Word Count");
+		System.out.println("4.Image Name"); 
+		System.out.println("5.Output Image");
 		System.out.println("X.EXIT");
 		System.out.print(">");
 	}	
 	
-	public void handle(String option) {
+	public void handle(String option) throws FileNotFoundException, Exception {		
 		
-		if (option.equals("1")) { // new Parser
+		if (option.equals("1")) { 
 			System.out.print("  Enter filename: ");
-			Parser p = new Parser();
-			try {
-				p.parse(new FileInputStream(new File(s.next())));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			controller.setWordSource(s.next());
 
 		}
 		else if (option.equals("2")) {
-			
+			System.out.println("URL - NYI");
 		}
 		else if (option.equals("3")) {
-			
+			System.out.print("  Enter word count: ");
+			controller.setWordCount((Integer.parseInt(s.next())));
 		}
-		else if (option.equals("4")) { // new BufferedImage
-			
+		else if (option.equals("4")) { 
+			System.out.println("  Enter image name: ");
+			controller.setImageName(s.next());
+		}
+		else if (option.contentEquals("5")) {
+			System.out.println("  Generating word cloud...");
+			controller.generateCloud();
 		}
 		else if (option.equalsIgnoreCase("x")) { // quit
 			System.out.println("  Exiting...");
