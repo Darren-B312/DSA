@@ -56,7 +56,6 @@ public class Menu {
 //			wc.setWordSrc(new File("../WarAndPeace-LeoTolstoy.txt")); //DEBUG - HARDCODED FILENAME FOR FASTER TESTING
 //			wc.setWordCount(20); //DEBUG - HARDCODED COUNT FOR FASTER TESTING
 //			wc.setImageName("test"); //DEBUG - HARDCODED NAME FOR FASTER TESTING
-
 			wc.generateCloud();
 		}
 		else if (option.equalsIgnoreCase("x")) { 
